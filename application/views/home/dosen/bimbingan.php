@@ -32,7 +32,7 @@
                   <td><?= $m['nama']; ?></td>
                   <td><?= $m['judul']; ?></td>
                   <td>
-                    <a href="#" class="badge badge-primary">
+                    <a href="<?= base_url('home/ubahMahasiswa/') . $m['nim']; ?>" class="badge badge-primary">
                       <i class="fas fa-fw fa-edit"></i>
                     </a>
                   </td>

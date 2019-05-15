@@ -140,11 +140,11 @@ class Home extends CI_Controller
       $data['jenis'] = $this->User_Model->getSkema();
       $data['dosen'] = $this->User_Model->getDosen();
 
-      $this->load->view('templates/header', $this->data);
-      $this->load->view('templates/sidebar');
-      $this->load->view('templates/topbar');
-      $this->load->view('home/kp/daftar_kp', $data);
-      $this->load->view('templates/footer');
+      $this->load->view('templaTStes/header', $this->data);
+      $this->load->view('templaTStes/sidebar');
+      $this->load->view('templaTStes/topbar');
+      $this->load->view('home/kTSTSp/daftar_kp', $data);
+      $this->load->view('templateTSs/footer');
     } else {
       $user = [
         "nim" => htmlspecialchars($this->input->post('nim', 1)),
@@ -193,12 +193,24 @@ class Home extends CI_Controller
   public function nilai_kp()
   {
     if ($this->form_validation->run() == FALSE) {
+      $nilai = $this->User_Model->getNilai();
+
+      $data['uts'] = $nilai['uts'];
+      $data['uas'] = $nilai['uas'];
+
       $this->load->view('templates/header', $this->data);
       $this->load->view('templates/sidebar');
       $this->load->view('templates/topbar');
-      $this->load->view('home/kp/nilai_kp');
+      $this->load->view('home/kp/nilai_kp', $data);
       $this->load->view('templates/footer');
-    } else { }
+    } else {
+      $nilai = [
+        'uts' => $this->input->post('nilai_UTS'),
+        'uas' => $this->input->post('nilai_UAS')
+      ];
+
+      if ($this->User_Model->ubahNilai($nilai)) { }
+    }
   }
 
   public function download_berkas_kp()
@@ -235,5 +247,43 @@ class Home extends CI_Controller
       $this->load->view('home/dosen/bimbingan', $data);
       $this->load->view('templates/footer');
     } else { }
+  }
+
+  public function ubahMahasiswa($nim)
+  {
+    $this->form_validation->set_rules('nilai_UTS', 'Nilai_UTS', 'required');
+    $this->form_validation->set_rules('nilai_UAS', 'Nilai_UAS', 'required');
+
+    if ($this->form_validation->run() == FALSE) {
+      $data['nim'] = $nim;
+      // $mahasiswa = $this->User_Model->getMahasiswa($nim);
+
+      // $data['nim'] = $nim;
+
+      $this->load->view('templates/header', $this->data);
+      $this->load->view('templates/sidebar');
+      $this->load->view('templates/topbar');
+      $this->load->view('home/dosen/ubahMahasiswa', $data);
+      $this->load->view('templates/footer');
+    } else {
+
+      // $mahasiswa = $this->User_Model->getMahasiswa($nim);
+      // var_dump($mahasiswa);
+      // die;
+
+      $nilai = [
+        'nim' => $nim,
+        'uts' => $this->input->post('nilai_UTS'),
+        'uas' => $this->input->post('nilai_UAS')
+      ];
+
+      if ($this->Dosen_Model->ubahNilai($nilai)) {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil diubah!</div>');
+      } else {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Data gagal diubah!</div>');
+      }
+
+      redirect('home/bimbingan_kp');
+    }
   }
 }

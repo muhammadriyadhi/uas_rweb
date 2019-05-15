@@ -68,4 +68,22 @@ class User_Model extends CI_Model
 
     return $this->db->query($query)->row_array();
   }
+
+  public function getNilai()
+  {
+    $user_id = $this->session->userdata('id');
+    $query = "select kp.nilai_UTS as uts, kp.nilai_UAS as uas from kp join mahasiswa on kp.id = mahasiswa.kode_kp where mahasiswa.user_id = $user_id";
+
+    return $this->db->query($query)->row_array();
+  }
+
+  public function getMahasiswa($nim)
+  {
+    $mahasiswa = $this->db->get_where('mahasiswa', ['nim' => $nim])->row_array();
+
+    // var_dump($mahasiswa);
+    // die;
+
+    return $this->db->get_where('kp', ['id' => $mahasiswa['kode_kp']])->row_array();
+  }
 }

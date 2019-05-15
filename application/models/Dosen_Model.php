@@ -12,4 +12,18 @@ class Dosen_Model extends CI_Model
 
     return $this->db->query($query)->result_array();
   }
+
+  public function ubahNilai($nilai)
+  {
+    $kp = $this->db->get_where('mahasiswa', ['nim' => $nilai['nim']])->row_array();
+
+    // var_dump($nilai);
+    // var_dump($kp);
+    // die;
+
+    $this->db->set('nilai_UTS', $nilai['uts']);
+    $this->db->set('nilai_UAS', $nilai['uas']);
+    $this->db->where('id', $kp['kode_kp']);
+    return $this->db->update('kp');
+  }
 }

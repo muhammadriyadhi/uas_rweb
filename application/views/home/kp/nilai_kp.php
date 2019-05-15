@@ -18,7 +18,7 @@
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
                             <div class="text-xl font-weight-bold text-primary text-uppercase mb-1">
-                              UTS : A
+                              UTS : <h1 class="text-danger"><?= $uts; ?></h1>
                             </div>
                           </div>
                           <div class="col-auto">
@@ -34,7 +34,7 @@
                         <div class="row no-gutters align-items-center">
                           <div class="col mr-2">
                             <div class="text-xl font-weight-bold text-primary text-uppercase mb-1">
-                              SEMINAR : A
+                              SEMINAR : <h1 class="text-danger"><?= $uas; ?></h1>
                             </div>
                           </div>
                           <div class="col-auto">

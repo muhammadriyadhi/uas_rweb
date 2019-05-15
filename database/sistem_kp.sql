@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 15, 2019 at 10:05 PM
+-- Generation Time: May 15, 2019 at 11:58 PM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -56,6 +56,8 @@ CREATE TABLE `kp` (
   `lokasi` varchar(40) NOT NULL,
   `skema_id` int(11) DEFAULT NULL,
   `dosen_niy` varchar(20) NOT NULL,
+  `nilai_UTS` varchar(5) NOT NULL,
+  `nilai_UAS` varchar(5) NOT NULL,
   `created_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -63,9 +65,9 @@ CREATE TABLE `kp` (
 -- Dumping data for table `kp`
 --
 
-INSERT INTO `kp` (`id`, `judul`, `lokasi`, `skema_id`, `dosen_niy`, `created_at`) VALUES
-(13, 'Ngasih Tutorial', 'Semin, Gunungkidul', 1, '1111111111', 1557795076),
-(14, 'test', 'bantul', 1, '1111111111', 1557808932);
+INSERT INTO `kp` (`id`, `judul`, `lokasi`, `skema_id`, `dosen_niy`, `nilai_UTS`, `nilai_UAS`, `created_at`) VALUES
+(13, 'Ngasih Tutorial', 'Semin, Gunungkidul', 1, '1111111111', 'A', 'A', 1557795076),
+(14, 'test', 'bantul', 1, '1111111111', 'D', 'D', 1557808932);
 
 -- --------------------------------------------------------
 
