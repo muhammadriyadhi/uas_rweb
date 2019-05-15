@@ -41,7 +41,7 @@ class Auth_Model extends CI_Model
       'username' => $param['username'],
       'password' => $param['password'],
       'role_id' => 2,
-      'is_active' => 0,
+      'is_active' => 1,
       'created_at' => time()
     ];
 

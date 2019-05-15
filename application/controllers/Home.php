@@ -83,7 +83,7 @@ class Home extends CI_Controller
       $data = [
         'username' => htmlspecialchars($this->input->post('username', 1)),
         'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
-        'is_active' => 0,
+        'is_active' => 1,
         'role_id' => 1,
         'created_at' => time()
       ];
