@@ -140,11 +140,11 @@ class Home extends CI_Controller
       $data['jenis'] = $this->User_Model->getSkema();
       $data['dosen'] = $this->User_Model->getDosen();
 
-      $this->load->view('templaTStes/header', $this->data);
-      $this->load->view('templaTStes/sidebar');
-      $this->load->view('templaTStes/topbar');
-      $this->load->view('home/kTSTSp/daftar_kp', $data);
-      $this->load->view('templateTSs/footer');
+      $this->load->view('templates/header', $this->data);
+      $this->load->view('templates/sidebar');
+      $this->load->view('templates/topbar');
+      $this->load->view('home/kp/daftar_kp', $data);
+      $this->load->view('templates/footer');
     } else {
       $user = [
         "nim" => htmlspecialchars($this->input->post('nim', 1)),
