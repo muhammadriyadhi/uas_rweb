@@ -19,7 +19,7 @@
       <span>Dashboard</span></a>
   </li>
 
-  <?php if ($role_id == 1) : ?>
+  <?php if ($role_id == 3) : ?>
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -59,6 +59,30 @@
           <a class="collapse-item" href="<?= base_url('home/download_berkas_kp'); ?>">Download Berkas KP</a>
           <a class="collapse-item" href="<?= base_url('home/upload_berkas_kp'); ?>">Upload Berkas</a>
           <a class="collapse-item" href="<?= base_url('home/info_kp'); ?>">Info KP</a>
+        </div>
+      </div>
+    </li>
+  <?php endif; ?>
+
+  <?php if ($role_id == 1) : ?>
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+      Kerja Praktek
+    </div>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Controller</span>
+      </a>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Components:</h6>
+          <a class="collapse-item" href="<?= base_url('home/bimbingan_kp'); ?>">Bimbingan KP</a>
+          <a class="collapse-item" href="<?= base_url('home/info_kp_dosen'); ?>">Info KP</a>
         </div>
       </div>
     </li>

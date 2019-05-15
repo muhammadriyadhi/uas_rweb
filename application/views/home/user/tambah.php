@@ -16,8 +16,18 @@
               <form action="<?= base_url('home/tambahUser') ?>" method="post">
                 <div class="form-group">
                   <label for="username">Username</label>
-                  <input type="text" class="form-control" id="username" name="username" placeholder="Masukan Username">
+                  <input type="text" class="form-control" id="username" name="username" placeholder="Masukan Username" value="<?= set_value('username'); ?>">
                   <?= form_error('username', '<small class="text-danger">', '</small>'); ?>
+                </div>
+                <div class="form-group">
+                  <label for="niy">NIY</label>
+                  <input type="text" class="form-control" id="niy" name="niy" placeholder="Masukan NIY"value="<?= set_value('niy'); ?>">
+                  <?= form_error('niy', '<small class="text-danger">', '</small>'); ?>
+                </div>
+                <div class="form-group">
+                  <label for="nama">Nama Dosen</label>
+                  <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Dosen" value="<?= set_value('nama'); ?>">
+                  <?= form_error('nama', '<small class="text-danger">', '</small>'); ?>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">

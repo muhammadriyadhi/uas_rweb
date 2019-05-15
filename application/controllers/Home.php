@@ -11,6 +11,7 @@ class Home extends CI_Controller
     $this->data['judul'] = "Sistem KP - Dashboard";
 
     $this->load->model('User_Model');
+    $this->load->model('Dosen_Model');
 
     if ($this->session->userdata('username') == NULL) {
       redirect('auth');
@@ -23,11 +24,26 @@ class Home extends CI_Controller
 
   public function index()
   {
-    $this->load->view('templates/header', $this->data);
-    $this->load->view('templates/sidebar');
-    $this->load->view('templates/topbar');
-    $this->load->view('home/index');
-    $this->load->view('templates/footer');
+
+    if ($this->session->userdata('role_id') == 1) {
+      $this->load->view('templates/header', $this->data);
+      $this->load->view('templates/sidebar');
+      $this->load->view('templates/topbar');
+      $this->load->view('home/dosen/index');
+      $this->load->view('templates/footer');
+    } else if ($this->session->userdata('role_id') == 2) {
+      $this->load->view('templates/header', $this->data);
+      $this->load->view('templates/sidebar');
+      $this->load->view('templates/topbar');
+      $this->load->view('home/kp/index');
+      $this->load->view('templates/footer');
+    } else {
+      $this->load->view('templates/header', $this->data);
+      $this->load->view('templates/sidebar');
+      $this->load->view('templates/topbar');
+      $this->load->view('home/index');
+      $this->load->view('templates/footer');
+    }
   }
 
   public function users()
@@ -54,6 +70,9 @@ class Home extends CI_Controller
     $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[8]|max_length[16]|matches[password2]');
     $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
 
+    $this->form_validation->set_rules('niy', 'NIY', 'required|trim|numeric|min_length[10]|max_length[10]');
+    $this->form_validation->set_rules('nama', 'Nama', 'required|trim');
+
     if ($this->form_validation->run() == FALSE) {
       $this->load->view('templates/header', $this->data);
       $this->load->view('templates/sidebar');
@@ -69,7 +88,13 @@ class Home extends CI_Controller
         'created_at' => time()
       ];
 
-      if ($this->User_Model->addUser($data)) {
+      $user = [
+        'niy' => htmlspecialchars($this->input->post('niy', 1)),
+        'nama' => htmlspecialchars($this->input->post('nama', 1)),
+        'created_at' => time()
+      ];
+
+      if ($this->User_Model->addUser($data, $user)) {
         $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Akun berhasil ditambahkan!</div>');
       } else {
         $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Akun gagal ditambahkan!</div>');
@@ -103,6 +128,15 @@ class Home extends CI_Controller
     $this->form_validation->set_rules('lokasi', 'Lokasi', 'required|trim');
 
     if ($this->form_validation->run() == NULL) {
+
+      $is_registered = $this->User_Model->isRegistered();
+
+      $data['register'] = NULL;
+
+      if ($is_registered['jumlah'] != 0) {
+        $data['register'] = $is_registered['jumlah'];
+      }
+
       $data['jenis'] = $this->User_Model->getSkema();
       $data['dosen'] = $this->User_Model->getDosen();
 
@@ -174,6 +208,31 @@ class Home extends CI_Controller
       $this->load->view('templates/sidebar');
       $this->load->view('templates/topbar');
       $this->load->view('home/kp/unduh_berkas_kp');
+      $this->load->view('templates/footer');
+    } else { }
+  }
+
+  public function info_kp_dosen()
+  {
+    if ($this->form_validation->run() == FALSE) {
+      $this->load->view('templates/header', $this->data);
+      $this->load->view('templates/sidebar');
+      $this->load->view('templates/topbar');
+      $this->load->view('home/dosen/info_kp');
+      $this->load->view('templates/footer');
+    } else { }
+  }
+
+  public function bimbingan_kp()
+  {
+    if ($this->form_validation->run() == FALSE) {
+
+      $data['mahasiswa'] = $this->Dosen_Model->getMahasiswa();
+
+      $this->load->view('templates/header', $this->data);
+      $this->load->view('templates/sidebar');
+      $this->load->view('templates/topbar');
+      $this->load->view('home/dosen/bimbingan', $data);
       $this->load->view('templates/footer');
     } else { }
   }

@@ -8,6 +8,7 @@
           <div class="p-5">
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">Buat Akun!</h1>
+              <?= $this->session->flashdata('pesan'); ?>
             </div>
             <form class="user" action="<?= base_url('auth/registration'); ?>" method="post">
               <div class="form-group">

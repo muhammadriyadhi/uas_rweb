@@ -8,7 +8,7 @@
           <?= $this->session->userdata('pesan'); ?>
         </div>
         <div class="col-xl-8 col-lg-7 mx-auto">
-          <a href="<?= base_url('home/tambahUser'); ?>" class="btn btn-primary float-right">Tambah Admin</a>
+          <a href="<?= base_url('home/tambahUser'); ?>" class="btn btn-primary float-right">Tambah Dosen</a>
         </div>
       </div>
       <div class="row">
@@ -52,9 +52,11 @@
                         <td>
                           <?php
                           if ($user['role_id'] == 1) {
-                            echo "Admin";
+                            echo "Dosen";
+                          } else if ($user['role_id'] == 2) {
+                            echo "Mahasiswa";
                           } else {
-                            echo "Member";
+                            echo "Admin";
                           }
                           ?>
                         </td>

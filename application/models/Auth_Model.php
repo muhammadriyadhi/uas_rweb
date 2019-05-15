@@ -8,6 +8,7 @@ class Auth_Model extends CI_Model
     if ($user) {
       if (password_verify($param['password'], $user['password'])) {
         $data = [
+          'id' => $user['id'],
           'username' => $user['username'],
           'is_active' => $user['is_active'],
           'role_id' => $user['role_id']

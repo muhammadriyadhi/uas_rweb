@@ -20,52 +20,58 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-              <form action="<?= base_url('home/daftar_kp'); ?>" method="post">
-                <div class="form-group">
-                  <label for="nim">NIM</label>
-                  <input type="text" class="form-control" id="nim" name="nim" value="<?= set_value('nim'); ?>">
-                  <?= form_error('nim', '<small class="text-danger pl-2">', '</small>'); ?>
+              <?php if ($register == NULL) : ?>
+                <form action="<?= base_url('home/daftar_kp'); ?>" method="post">
+                  <div class="form-group">
+                    <label for="nim">NIM</label>
+                    <input type="text" class="form-control" id="nim" name="nim" value="<?= set_value('nim'); ?>">
+                    <?= form_error('nim', '<small class="text-danger pl-2">', '</small>'); ?>
+                  </div>
+                  <div class="form-group">
+                    <label for="nama">Nama</label>
+                    <input type="text" class="form-control" id="nama" name="nama" value="<?= set_value('nama'); ?>">
+                    <?= form_error('nama', '<small class="text-danger pl-2">', '</small>'); ?>
+                  </div>
+                  <div class="form-group">
+                    <label for="jenis">Jenis KP</label>
+                    <select name="jenis" id="jenis" class="form-control">
+                      <?php foreach ($jenis as $j) : ?>
+                        <option value="<?= $j['id']; ?>">
+                          <?= $j['nama']; ?>
+                        </option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="judul">Judul KP</label>
+                    <input type="text" class="form-control" id="judul" name="judul" value="<?= set_value('judul'); ?>">
+                    <?= form_error('judul', '<small class="text-danger pl-2">', '</small>'); ?>
+                  </div>
+                  <div class="form-group">
+                    <label for="lokasi">Lokasi KP</label>
+                    <input type="text" class="form-control" id="lokasi" name="lokasi" value="<?= set_value('lokasi'); ?>">
+                    <?= form_error('lokasi', '<small class="text-danger pl-2">', '</small>'); ?>
+                  </div>
+                  <div class="form-group">
+                    <label for="dosen">Dosen Pembimbing</label>
+                    <select name="dosen" id="dosen" class="form-control">
+                      <?php foreach ($dosen as $d) : ?>
+                        <option value="<?= $d['niy']; ?>">
+                          <?= $d['nama']; ?>
+                        </option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">
+                    <i class="fas fa-fw fa-plus"></i>
+                    Daftar Sekarang
+                  </button>
+                </form>
+              <?php else : ?>
+                <div class="text-center">
+                  <div class="alert alert-danger">Anda sudah terdaftar</div>
                 </div>
-                <div class="form-group">
-                  <label for="nama">Nama</label>
-                  <input type="text" class="form-control" id="nama" name="nama" value="<?= set_value('nama'); ?>">
-                  <?= form_error('nama', '<small class="text-danger pl-2">', '</small>'); ?>
-                </div>
-                <div class="form-group">
-                  <label for="jenis">Jenis KP</label>
-                  <select name="jenis" id="jenis" class="form-control">
-                    <?php foreach ($jenis as $j) : ?>
-                      <option value="<?= $j['id']; ?>">
-                        <?= $j['nama']; ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="judul">Judul KP</label>
-                  <input type="text" class="form-control" id="judul" name="judul" value="<?= set_value('judul'); ?>">
-                  <?= form_error('judul', '<small class="text-danger pl-2">', '</small>'); ?>
-                </div>
-                <div class="form-group">
-                  <label for="lokasi">Lokasi KP</label>
-                  <input type="text" class="form-control" id="lokasi" name="lokasi" value="<?= set_value('lokasi'); ?>">
-                  <?= form_error('lokasi', '<small class="text-danger pl-2">', '</small>'); ?>
-                </div>
-                <div class="form-group">
-                  <label for="dosen">Dosen Pembimbing</label>
-                  <select name="dosen" id="dosen" class="form-control">
-                    <?php foreach ($dosen as $d) : ?>
-                      <option value="<?= $d['niy']; ?>">
-                        <?= $d['nama']; ?>
-                      </option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">
-                  <i class="fas fa-fw fa-plus"></i>
-                  Daftar Sekarang
-                </button>
-              </form>
+              <?php endif; ?>
             </div>
           </div>
         </div>

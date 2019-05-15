@@ -7,9 +7,16 @@ class User_Model extends CI_Model
     return $this->db->get('user')->result_array();
   }
 
-  public function addUser($data)
+  public function addUser($data, $user)
   {
-    return $this->db->insert('user', $data);
+    $this->db->insert('user', $data);
+
+    $query = "select * from user order by id desc limit 1";
+    $res = $this->db->query($query)->row_array();
+
+    $user['user_Id'] = $res['id'];
+
+    return $this->db->insert('dosen', $user);
   }
 
   public function activate($id)
@@ -51,5 +58,14 @@ class User_Model extends CI_Model
     $user['created_at'] = time();
 
     return $this->db->insert('mahasiswa', $user);
+  }
+
+  public function isRegistered()
+  {
+    $user_id = $this->session->userdata('id');
+
+    $query = "select count(kp.id) as jumlah from kp join mahasiswa on kp.id = mahasiswa.kode_kp where mahasiswa.user_id = $user_id and mahasiswa.kode_kp = kp.id";
+
+    return $this->db->query($query)->row_array();
   }
 }
