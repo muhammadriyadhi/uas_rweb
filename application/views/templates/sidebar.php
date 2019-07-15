@@ -35,6 +35,20 @@
         <span>User</span></a>
     </li>
 
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+      Manajemen KP
+    </div>
+
+    <!-- Nav Item - Tables -->
+    <li class="nav-item">
+      <a class="nav-link" href="<?= base_url('home/notifikasi') ?>">
+        <i class="fas fa-fw fa-user"></i>
+        <span>Notifikasi</span></a>
+    </li>
+
   <?php endif; ?>
 
   <?php if ($role_id == 2) : ?>

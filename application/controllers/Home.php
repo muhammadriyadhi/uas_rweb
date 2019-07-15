@@ -182,10 +182,12 @@ class Home extends CI_Controller
   public function info_kp()
   {
     if ($this->form_validation->run() == FALSE) {
+      $data['notifikasi'] = $this->User_Model->getNotifikasi();
+
       $this->load->view('templates/header', $this->data);
       $this->load->view('templates/sidebar');
       $this->load->view('templates/topbar');
-      $this->load->view('home/kp/info_kp');
+      $this->load->view('home/kp/info_kp', $data);
       $this->load->view('templates/footer');
     } else { }
   }
@@ -285,5 +287,86 @@ class Home extends CI_Controller
 
       redirect('home/bimbingan_kp');
     }
+  }
+
+  public function notifikasi() {
+
+    $data['notifikasi'] = $this->User_Model->getNotifikasi();
+
+    $this->load->view('templates/header', $this->data);
+    $this->load->view('templates/sidebar');
+    $this->load->view('templates/topbar');
+    $this->load->view('home/user/notifikasi', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function editNotifikasi($id) {
+    $this->form_validation->set_rules('notifikasi', 'Notifiaksi', 'required', [
+      'required' => 'Harus diisi ketika ingin menambahkan'
+    ]);
+
+    if($this->form_validation->run() == FALSE) {
+      $result = $this->User_Model->getOneNotifikasi($id);
+      // var_dump($result);
+      $data['pesan'] = $result['pesan'];
+
+      $this->load->view('templates/header', $this->data);
+      $this->load->view('templates/sidebar');
+      $this->load->view('templates/topbar');
+      $this->load->view('home/user/ubah_notifikasi', $data);
+      $this->load->view('templates/footer');
+    } else {
+      $data = [
+        'pesan' => $this->input->post('notifikasi'),
+        'created_at' => time()
+      ];
+
+      if($this->User_Model->setNotifikasi($data)) {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil diubah!</div>');
+      } else {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Data gagal diubah!</div>');
+      }
+
+      redirect('home/notifikasi');
+
+    }
+  }
+
+  public function tambahNotifikasi() {
+    $this->form_validation->set_rules('notifikasi', 'Notifiaksi', 'required', [
+      'required' => 'Harus diisi ketika ingin menambahkan'
+    ]);
+
+    if($this->form_validation->run() == FALSE) {
+      $this->load->view('templates/header', $this->data);
+      $this->load->view('templates/sidebar');
+      $this->load->view('templates/topbar');
+      $this->load->view('home/user/tambah_notifikasi');
+      $this->load->view('templates/footer');
+    } else {
+      $data = [
+        'pesan' => $this->input->post('notifikasi'),
+        'created_at' => time()
+      ];
+
+      if($this->User_Model->setNotifikasi($data)) {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil disimpan!</div>');
+      } else {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Data gagal disimpan!</div>');
+      }
+
+      redirect('home/notifikasi');
+
+    }
+  }
+
+  public function hapusNotifikasi($id) {
+    if($this->User_Model->deleteNotifikasi($id)) {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Data berhasil dihapus!</div>');
+    } else {
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger" role="alert">Data Gagal dihapus!</div>');
+    }
+
+    redirect('home/notifikasi');
   }
 }

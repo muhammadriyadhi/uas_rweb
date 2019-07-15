@@ -86,4 +86,20 @@ class User_Model extends CI_Model
 
     return $this->db->get_where('kp', ['id' => $mahasiswa['kode_kp']])->row_array();
   }
+
+  public function setNotifikasi($data) {
+    return $this->db->insert('notifikasi', $data);
+  }
+
+  public function getNotifikasi() {
+    return $this->db->get('notifikasi')->result_array();
+  }
+
+  public function getOneNotifikasi($id) {
+    return $this->db->get_where('notifikasi', ['id' => $id])->row_array();
+  }
+
+  public function deleteNotifikasi($id) {
+    return $this->db->delete('notifikasi', ['id' => $id]);
+  }
 }
